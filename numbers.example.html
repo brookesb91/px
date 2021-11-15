@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="px.js"></script>
+
+    <script type="text/javascript">
+      const layers = ['ui'];
+
+      let n = 0;
+
+      const number = sprite({
+        layer: () => layers[0],
+        palette: () => ['white', 'black'],
+        render: (palette, { time, delta }) => {
+          const s = numbers(palette)[n];
+          n = n + 1 >= 10 ? 0 : n + 1;
+          return s;
+        },
+      });
+
+      const numbers = ([o, x]) => [
+        [
+          [x, x, x],
+          [x, o, x],
+          [x, o, x],
+          [x, o, x],
+          [x, x, x],
+        ],
+        // One
+        [
+          [o, o, x],
+          [o, o, x],
+          [o, o, x],
+          [o, o, x],
+          [o, o, x],
+        ],
+        // Two
+        [
+          [x, x, x],
+          [o, o, x],
+          [x, x, x],
+          [x, o, o],
+          [x, x, x],
+        ],
+        // Three
+        [
+          [x, x, x],
+          [o, o, x],
+          [x, x, x],
+          [o, o, x],
+          [x, x, x],
+        ],
+        // Four
+        [
+          [x, o, x],
+          [x, o, x],
+          [x, x, x],
+          [o, o, x],
+          [o, o, x],
+        ],
+        // Five
+        [
+          [x, x, x],
+          [x, o, o],
+          [x, x, x],
+          [o, o, x],
+          [x, x, x],
+        ],
+        // Six
+        [
+          [x, x, x],
+          [o, o, x],
+          [x, x, x],
+          [o, o, x],
+          [x, x, x],
+        ],
+        // Seven
+        [
+          [x, x, x],
+          [o, o, x],
+          [o, o, x],
+          [o, o, x],
+          [o, o, x],
+        ],
+        // Eight
+        [
+          [x, x, x],
+          [x, o, x],
+          [x, x, x],
+          [x, o, x],
+          [x, x, x],
+        ],
+        // Nine
+        [
+          [x, x, x],
+          [o, o, x],
+          [x, x, x],
+          [o, o, x],
+          [o, o, x],
+        ],
+      ];
+
+      render({ layers, height: 10, width: 10, size: 15 }, [number]);
+    </script>
+  </body>
+</html>

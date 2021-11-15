@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="px.js"></script>
+
+    <script type="text/javascript">
+      /**
+       * Example
+       */
+
+      const layers = ['background', 'objects', 'ui'];
+
+      const background = sprite({
+        layer: () => layers[0],
+        palette: () => ['#fff', '#000'],
+        render: ([w, b]) => [
+          [w, w, b, w, w, b, w, w, b, w, w, w, w, w, w, w],
+          [w, w, b, w, w, b, w, w, b, w, w, w, w, w, w, w],
+          [w, w, b, w, w, b, w, w, b, w, w, w, w, w, w, w],
+          [w, w, b, w, w, b, w, w, b, w, w, w, w, w, w, w],
+          [w, w, b, w, w, b, w, w, b, w, w, w, w, w, w, w],
+          [w, w, b, w, w, b, w, w, b, w, w, w, w, w, w, w],
+          [w, w, b, w, w, b, w, w, b, w, w, w, w, w, w, w],
+          [w, w, b, w, w, b, w, w, b, w, w, w, w, w, w, w],
+          [w, w, b, w, w, b, w, w, b, w, w, w, w, w, w, w],
+        ],
+      });
+
+      const ui = sprite({
+        position: () => [0, 0],
+        layer: () => layers[2],
+        palette: () => ['red'],
+        render: ([r]) => [
+          [r, r, r, r, r, r, r, r, r, r],
+          [r, r, r, r, r, r, r, r, r, r],
+          [r, r, r, r, r, r, r, r, r, r],
+          [r, r, r, r, r, r, r, r, r, r],
+          [r, r, r, r, r, r, r, r, r, r],
+        ],
+      });
+
+      render({ layers, height: 9, width: 15, size: 15 }, [background, ui]);
+    </script>
+  </body>
+</html>
