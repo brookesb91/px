@@ -1,19 +1,29 @@
-const sprite = ({ layer, palette, render, position = () => [0, 0] }) => ({
+/**
+ * Convenience method for applying defaults.
+ */
+const sprite = ({
+  layer,
+  palette = () => [],
+  render = () => [],
+  position = () => [0, 0],
+}) => ({
   layer,
   palette,
   render,
   position,
 });
 
-const render = ({ layers, height, width, size }, sprites) => {
-  const stage = document.createElement('div');
-  stage.id = 'stage';
+const render = ({ selector, layers, height, width, size }, sprites) => {
+  // Setup rendering stage.
+  const stage = document.querySelector(selector);
   stage.style.position = 'relative';
   stage.style.height = `${height * size}px`;
   stage.style.width = `${width * size}px`;
 
+  // Map of rendering contexts
   const ctxs = {};
 
+  // Setup layers
   layers.forEach((layer) => {
     const canvas = document.createElement('canvas');
     canvas.height = height * size;
@@ -28,8 +38,10 @@ const render = ({ layers, height, width, size }, sprites) => {
     stage.appendChild(canvas);
   });
 
+  // Append stage element
   document.body.appendChild(stage);
 
+  // Clear all rendering contexts
   const clear = () => {
     Object.values(ctxs).map((ctx) => {
       ctx.canvas.height = ctx.canvas.height;
@@ -37,12 +49,17 @@ const render = ({ layers, height, width, size }, sprites) => {
     });
   };
 
+  // Draw a frame
   const draw = (time, delta) => {
     if (time !== 0) {
       clear();
     }
 
-    sprites.forEach((sprite) => {
+    let index = 0;
+    let total = sprites.length;
+
+    while (index < total) {
+      const sprite = sprites[index];
       const layer = sprite.layer({ time, delta });
       if (layer in ctxs) {
         const ctx = ctxs[layer];
@@ -72,10 +89,12 @@ const render = ({ layers, height, width, size }, sprites) => {
           y++;
         }
       }
-    });
+      index++;
+    }
 
     requestAnimationFrame((next) => draw(next, next - time));
   };
 
+  // First frame
   draw(0, 0);
 };

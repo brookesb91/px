@@ -4,27 +4,17 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>px // Animated Example</title>
   </head>
   <body>
-    <script src="px.js"></script>
+    <div id="stage"></div>
+
+    <script src="../src/px.js"></script>
 
     <script type="text/javascript">
       const layers = ['ui'];
 
-      let n = 0;
-
-      const number = sprite({
-        layer: () => layers[0],
-        palette: () => ['white', 'black'],
-        render: (palette, { time, delta }) => {
-          const s = numbers(palette)[n];
-          n = n + 1 >= 10 ? 0 : n + 1;
-          return s;
-        },
-      });
-
-      const numbers = ([o, x]) => [
+      const digits = ([o, x]) => [
         [
           [x, x, x],
           [x, o, x],
@@ -75,9 +65,9 @@
         // Six
         [
           [x, x, x],
-          [o, o, x],
+          [x, o, o],
           [x, x, x],
-          [o, o, x],
+          [x, o, x],
           [x, x, x],
         ],
         // Seven
@@ -99,14 +89,25 @@
         // Nine
         [
           [x, x, x],
-          [o, o, x],
+          [x, o, x],
           [x, x, x],
           [o, o, x],
           [o, o, x],
         ],
       ];
 
-      render({ layers, height: 10, width: 10, size: 15 }, [number]);
+      const digit = sprite({
+        layer: () => layers[0],
+        palette: () => ['white', 'black'],
+        render: (palette, { time, delta }) => {
+          const i = Math.floor(time / 1000) % 10;
+          return digits(palette)[i];
+        },
+      });
+
+      render({ selector: '#stage', layers, height: 10, width: 10, size: 15 }, [
+        digit,
+      ]);
     </script>
   </body>
 </html>
