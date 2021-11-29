@@ -38,9 +38,6 @@ const render = ({ selector, layers, height, width, size }, sprites) => {
     stage.appendChild(canvas);
   });
 
-  // Append stage element
-  document.body.appendChild(stage);
-
   // Clear all rendering contexts
   const clear = () => {
     Object.values(ctxs).map((ctx) => {
