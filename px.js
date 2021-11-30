@@ -14,13 +14,16 @@
  * @type {string[][]}
  *
  * @typedef PaletteBuilder
- * @type {function(Frame):Palette}
+ * @type {function(Frame,Record<string, unknown>):Palette}
  *
  * @typedef TileMapBuilder
- * @type {function(Frame):TileMap}
+ * @type {function(Frame,Record<string, unknown>):TileMap}
  *
  * @typedef PositionBuilder
- * @type {function(Frame):Position}
+ * @type {function(Frame,Record<string, unknown>):Position}
+ *
+ * @typedef StateBuilder
+ * @type {function(Frame):Record<string, unknown>}
  *
  * @typedef SpriteConfig
  * @type {object}
@@ -28,6 +31,15 @@
  * @property {PaletteBuilder} [palette=()=>[]] Palette builder.
  * @property {TileMapBuilder} [render=()=>[]] Render function.
  * @property {PositionBuilder} [position=()=>[0,0]] Rendering origin.
+ * @property {StateBuilder} [state=()=>({})] State builder.
+ *
+ * @typedef Sprite
+ * @type {object}
+ * @property {string} layer Layer to render this sprite to.
+ * @property {PaletteBuilder} palette Palette builder.
+ * @property {TileMapBuilder} render Render function.
+ * @property {PositionBuilder} position Rendering origin.
+ * @property {StateBuilder} state State builder.
  *
  * @typedef RenderConfig
  * @type {object}
@@ -41,18 +53,20 @@
 /**
  *
  * @param {SpriteConfig} config Sprite configuration.
- * @returns
+ * @returns {Sprite} Sprite
  */
 const sprite = ({
   layer,
   palette = () => [],
   render = () => [],
   position = () => [0, 0],
+  state = () => ({}),
 }) => ({
   layer,
   palette,
   render,
   position,
+  state,
 });
 
 /**
@@ -64,8 +78,8 @@ const render = ({ selector, layers, height, width, size }, sprites) => {
   // Setup rendering stage.
   const stage = document.querySelector(selector);
   stage.style.position = 'relative';
-  stage.style.height = `${height * size}`;
-  stage.style.width = `${width * size}`;
+  stage.style.height = `${height * size}px`;
+  stage.style.width = `${width * size}px`;
 
   // Map of rendering contexts
   const ctxs = {};
@@ -107,9 +121,11 @@ const render = ({ selector, layers, height, width, size }, sprites) => {
       const layer = sprite.layer({ time, delta });
       if (layer in ctxs) {
         const ctx = ctxs[layer];
-        const [posX, posY] = sprite.position({ time, delta });
-        const palette = sprite.palette({ time, delta });
-        const tiles = sprite.render(palette, { time, delta });
+        const frame = { time, delta };
+        const state = sprite.state(frame);
+        const [posX, posY] = sprite.position(frame, state);
+        const palette = sprite.palette(frame, state);
+        const tiles = sprite.render(palette, frame, state);
 
         const rows = tiles.length;
         let y = 0;
