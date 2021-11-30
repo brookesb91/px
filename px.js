@@ -55,6 +55,11 @@ const sprite = ({
   position,
 });
 
+/**
+ *
+ * @param {RenderConfig} config Rendering configuration.
+ * @param {Sprite[]} sprites Sprites to render.
+ */
 const render = ({ selector, layers, height, width, size }, sprites) => {
   // Setup rendering stage.
   const stage = document.querySelector(selector);
