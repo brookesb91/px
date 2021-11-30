@@ -1,4 +1,4 @@
-# PX - A pixel-based canvas rendering library
+# px - A pixel-based canvas rendering library
 
 ## Quick Start
 
