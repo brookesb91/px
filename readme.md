@@ -8,6 +8,12 @@ Add px to your page.
 <script src="path/to/px.js"></script>
 ```
 
+Via JsDelivr
+
+```html
+<script src="https://cdn.jsdelivr.net/gh/brookesb91/px@v0.1/px.js"></script>
+```
+
 Create a root element.
 
 ```html
