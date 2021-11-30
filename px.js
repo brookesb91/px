@@ -1,5 +1,47 @@
 /**
- * Convenience method for applying defaults.
+ * @typedef Frame
+ * @type {object}
+ * @property {number} time Current frame time.
+ * @property {number} delta Time since last frame.
+ *
+ * @typedef Palette
+ * @type {string[]}
+ *
+ * @typedef Position
+ * @type {[number, number]}
+ *
+ * @typedef TileMap
+ * @type {string[][]}
+ *
+ * @typedef PaletteBuilder
+ * @type {function(Frame):Palette}
+ *
+ * @typedef TileMapBuilder
+ * @type {function(Frame):TileMap}
+ *
+ * @typedef PositionBuilder
+ * @type {function(Frame):Position}
+ *
+ * @typedef SpriteConfig
+ * @type {object}
+ * @property {string} layer Layer to render this sprite to.
+ * @property {PaletteBuilder} [palette=()=>[]] Palette builder.
+ * @property {TileMapBuilder} [render=()=>[]] Render function.
+ * @property {PositionBuilder} [position=()=>[0,0]] Rendering origin.
+ *
+ * @typedef RenderConfig
+ * @type {object}
+ * @property {string} selector Root element selector.
+ * @property {string[]} layers Rendering layers.
+ * @property {number} height Rendering height.
+ * @property {number} width Rendering width;
+ * @property {number} size Rendering pixel size.
+ */
+
+/**
+ *
+ * @param {SpriteConfig} config Sprite configuration.
+ * @returns
  */
 const sprite = ({
   layer,
@@ -17,8 +59,8 @@ const render = ({ selector, layers, height, width, size }, sprites) => {
   // Setup rendering stage.
   const stage = document.querySelector(selector);
   stage.style.position = 'relative';
-  stage.style.height = `${height * size}px`;
-  stage.style.width = `${width * size}px`;
+  stage.style.height = `${height * size}`;
+  stage.style.width = `${width * size}`;
 
   // Map of rendering contexts
   const ctxs = {};

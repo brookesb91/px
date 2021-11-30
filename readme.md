@@ -1,13 +1,33 @@
 # PX - A pixel-based canvas rendering library
 
-## Example
+## Quick Start
+
+Add px to your page.
+
+```html
+<script src="path/to/px.js"></script>
+```
+
+Create a root element.
+
+```html
+<div id="stage"></div>
+```
+
+Render sprites using JavaScript.
 
 ```js
 /**
  * Render, with the given options, the provided sprites.
  */
 render(
+  // Rendering config
   {
+    /**
+     * Selector for the root element.
+     * Uses first element found with `document.querySelector(selector)`.
+     */
+    selector: '#stage',
     /**
      * The physical pixel size of each
      * rendered sprite pixel.
@@ -33,20 +53,21 @@ render(
      */
     layers: ['background', 'foreground'],
   },
+  // Array of sprites to be rendered
   [
     sprite({
       /**
        * Return the named layer this sprite is rendered to.
        */
-      layer: () => 'background',
+      layer: ({ time, delta }) => 'background',
       /**
        * Return the colour palette for this sprite.
        */
-      palette: () => ['white', 'black'],
+      palette: ({ time, delta }) => ['white', 'black'],
       /**
        * Given the palette, return the pixels of this sprite.
        */
-      render: ([w, b]) => [
+      render: ([w, b], { time, delta }) => [
         [b, b, b, b, w, w, w, w, b, b, b, b, w, w, w, w],
         [b, b, b, b, w, w, w, w, b, b, b, b, w, w, w, w],
         [b, b, b, b, w, w, w, w, b, b, b, b, w, w, w, w],
@@ -66,10 +87,10 @@ render(
        * Optionally return a position for this sprite.
        * This position acts as the sprite's rendering origin.
        */
-      position: () => [5, 6],
-      layer: () => 'foreground',
-      palette: () => ['transparent', 'red'],
-      render: ([t, r]) => [
+      position: ({ time, delta }) => [5, 6],
+      layer: ({ time, delta }) => 'foreground',
+      palette: ({ time, delta }) => ['transparent', 'red'],
+      render: ([t, r], { time, delta }) => [
         [r, t, t, r, t, r, t, r],
         [r, t, t, r, t, r, t, r],
         [r, r, r, r, t, r, t, r],
