@@ -10,14 +10,14 @@
  * @typedef Position
  * @type {[number, number]}
  *
- * @typedef TileMap
+ * @typedef Pixels
  * @type {string[][]}
  *
  * @typedef PaletteBuilder
  * @type {function(Frame,Record<string, unknown>):Palette}
  *
- * @typedef TileMapBuilder
- * @type {function(Frame,Record<string, unknown>):TileMap}
+ * @typedef PixelsBuilder
+ * @type {function(Frame,Record<string, unknown>):Pixels}
  *
  * @typedef PositionBuilder
  * @type {function(Frame,Record<string, unknown>):Position}
@@ -29,7 +29,7 @@
  * @type {object}
  * @property {string} layer Layer to render this sprite to.
  * @property {PaletteBuilder} [palette=()=>[]] Palette builder.
- * @property {TileMapBuilder} [render=()=>[]] Render function.
+ * @property {PixelsBuilder} [render=()=>[]] Render function.
  * @property {PositionBuilder} [position=()=>[0,0]] Rendering origin.
  * @property {StateBuilder} [state=()=>({})] State builder.
  *
@@ -37,7 +37,7 @@
  * @type {object}
  * @property {string} layer Layer to render this sprite to.
  * @property {PaletteBuilder} palette Palette builder.
- * @property {TileMapBuilder} render Render function.
+ * @property {PixelsBuilder} render Render function.
  * @property {PositionBuilder} position Rendering origin.
  * @property {StateBuilder} state State builder.
  *
@@ -125,18 +125,18 @@ const render = ({ selector, layers, height, width, size }, sprites) => {
         const state = sprite.state(frame);
         const [posX, posY] = sprite.position(frame, state);
         const palette = sprite.palette(frame, state);
-        const tiles = sprite.render(palette, frame, state);
+        const pixels = sprite.render(palette, frame, state);
 
-        const rows = tiles.length;
+        const rows = pixels.length;
         let y = 0;
 
         while (y < rows) {
-          const cols = tiles[y].length;
+          const cols = pixels[y].length;
           let x = 0;
 
           while (x < cols) {
             ctx.save();
-            ctx.fillStyle = tiles[y][x];
+            ctx.fillStyle = pixels[y][x];
             ctx.fillRect(
               x * size + posX * size,
               y * size + posY * size,
