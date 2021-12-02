@@ -155,8 +155,8 @@ A rendering is created on an initial call to `render` and each subsequent frame 
 
 | Property   | Type                                                                 | Default       | Description                                                                                                                         |
 | ---------- | -------------------------------------------------------------------- | ------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| `layer`    | `(frame: Frame, state: Record<string, unknown>) => string`           | n/a           | Layer builder. Returns the name of the layer this sprite is to be rendered to. Must match a layer provided in the `RenderConfig`.   |
 | `state`    | `(frame: Frame) => Record<string, unknown>`                          | `() => ({})`  | Optional state builder. Return a state for the sprite. Note that `px` does not provided state management.                           |
+| `layer`    | `(frame: Frame, state: Record<string, unknown>) => string`           | n/a           | Layer builder. Returns the name of the layer this sprite is to be rendered to. Must match a layer provided in the `RenderConfig`.   |
 | `position` | `(frame: Frame, state: Record<string, unknown>) => [number, number]` | `() => [0,0]` | Position builder. Returns the positional offset of the sprite. The first value is the x position and the second is the y position.  |
 | `palette`  | `(frame: Frame, state: Record<string, unknown>) => string[]`         | `() => []`    | Palette builder. Returns a palette of colours to be used when rendering this sprite. A palette is an array of valid colour strings. |
 | `render`   | `(frame: Frame, state: Record<string, unknown>) => number[][]`       | `() => []`    | Pixels builder. Returns the pixels for the sprite. Each pixel is a valid index of the sprite palette.                               |

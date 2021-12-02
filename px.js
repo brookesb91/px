@@ -115,14 +115,15 @@ const render = ({ selector, layers, height, width, size }, sprites) => {
 
     let index = 0;
     let total = sprites.length;
+    const frame = { time, delta };
 
     while (index < total) {
       const sprite = sprites[index];
-      const layer = sprite.layer({ time, delta });
+      const state = sprite.state(frame);
+      const layer = sprite.layer(frame, state);
       if (layer in ctxs) {
         const ctx = ctxs[layer];
-        const frame = { time, delta };
-        const state = sprite.state(frame);
+
         const [posX, posY] = sprite.position(frame, state);
         const palette = sprite.palette(frame, state);
         const pixels = sprite.render(frame, state);
