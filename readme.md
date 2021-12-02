@@ -73,19 +73,19 @@ render(
       /**
        * Given the palette, return the pixels of this sprite.
        */
-      render: ([w, b], { time, delta }) => [
-        [b, b, b, b, w, w, w, w, b, b, b, b, w, w, w, w],
-        [b, b, b, b, w, w, w, w, b, b, b, b, w, w, w, w],
-        [b, b, b, b, w, w, w, w, b, b, b, b, w, w, w, w],
-        [b, b, b, b, w, w, w, w, b, b, b, b, w, w, w, w],
-        [w, w, w, w, b, b, b, b, w, w, w, w, b, b, b, b],
-        [w, w, w, w, b, b, b, b, w, w, w, w, b, b, b, b],
-        [w, w, w, w, b, b, b, b, w, w, w, w, b, b, b, b],
-        [w, w, w, w, b, b, b, b, w, w, w, w, b, b, b, b],
-        [b, b, b, b, w, w, w, w, b, b, b, b, w, w, w, w],
-        [b, b, b, b, w, w, w, w, b, b, b, b, w, w, w, w],
-        [b, b, b, b, w, w, w, w, b, b, b, b, w, w, w, w],
-        [b, b, b, b, w, w, w, w, b, b, b, b, w, w, w, w],
+      render: ({ time, delta }) => [
+        [1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0],
+        [1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0],
+        [1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0],
+        [1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0],
+        [0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1],
+        [0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1],
+        [0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1],
+        [0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1],
+        [1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0],
+        [1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0],
+        [1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0],
+        [1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0],
       ],
     }),
     sprite({
@@ -96,12 +96,12 @@ render(
       position: ({ time, delta }) => [5, 6],
       layer: ({ time, delta }) => 'foreground',
       palette: ({ time, delta }) => ['transparent', 'red'],
-      render: ([t, r], { time, delta }) => [
-        [r, t, t, r, t, r, t, r],
-        [r, t, t, r, t, r, t, r],
-        [r, r, r, r, t, r, t, r],
-        [r, t, t, r, t, r, t, t],
-        [r, t, t, r, t, r, t, r],
+      render: ({ time, delta }) => [
+        [1, 0, 0, 1, 0, 1, 0, 1],
+        [1, 0, 0, 1, 0, 1, 0, 1],
+        [1, 1, 1, 1, 0, 1, 0, 1],
+        [1, 0, 0, 1, 0, 1, 0, 1],
+        [1, 0, 0, 1, 0, 1, 0, 1],
       ],
     }),
   ]
@@ -159,6 +159,6 @@ A rendering is created on an initial call to `render` and each subsequent frame 
 | `state`    | `(frame: Frame) => Record<string, unknown>`                                       | `() => ({})`  | Optional state builder. Return a state for the sprite. Note that `px` does not provided state management.                           |
 | `position` | `(frame: Frame, state: Record<string, unknown>) => [number, number]`              | `() => [0,0]` | Position builder. Returns the positional offset of the sprite. The first value is the x position and the second is the y position.  |
 | `palette`  | `(frame: Frame, state: Record<string, unknown>) => string[]`                      | `() => []`    | Palette builder. Returns a palette of colours to be used when rendering this sprite. A palette is an array of valid colour strings. |
-| `render`   | `(palette: string[], frame: Frame, state: Record<string, unknown>) => string[][]` | `() => []`    | Pixels builder. Returns the pixels for the sprite. Each pixel is a value from the palette provided (Not entirely strict).           |
+| `render`   | `(palette: string[], frame: Frame, state: Record<string, unknown>) => number[][]` | `() => []`    | Pixels builder. Returns the pixels for the sprite. Each pixel is a valid index of the sprite palette.                               |
 
 The builders are called in the order they are listed above.

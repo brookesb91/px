@@ -1,95 +1,95 @@
 const layers = ['ui'];
 
-const digits = ([o, x]) => [
+const digits = [
   [
-    [x, x, x],
-    [x, o, x],
-    [x, o, x],
-    [x, o, x],
-    [x, x, x],
+    [1, 1, 1],
+    [1, 0, 1],
+    [1, 0, 1],
+    [1, 0, 1],
+    [1, 1, 1],
   ],
   // One
   [
-    [o, o, x],
-    [o, o, x],
-    [o, o, x],
-    [o, o, x],
-    [o, o, x],
+    [0, 0, 1],
+    [0, 0, 1],
+    [0, 0, 1],
+    [0, 0, 1],
+    [0, 0, 1],
   ],
   // Two
   [
-    [x, x, x],
-    [o, o, x],
-    [x, x, x],
-    [x, o, o],
-    [x, x, x],
+    [1, 1, 1],
+    [0, 0, 1],
+    [1, 1, 1],
+    [1, 0, 0],
+    [1, 1, 1],
   ],
   // Three
   [
-    [x, x, x],
-    [o, o, x],
-    [x, x, x],
-    [o, o, x],
-    [x, x, x],
+    [1, 1, 1],
+    [0, 0, 1],
+    [1, 1, 1],
+    [0, 0, 1],
+    [1, 1, 1],
   ],
   // Four
   [
-    [x, o, x],
-    [x, o, x],
-    [x, x, x],
-    [o, o, x],
-    [o, o, x],
+    [1, 0, 1],
+    [1, 0, 1],
+    [1, 1, 1],
+    [0, 0, 1],
+    [0, 0, 1],
   ],
   // Five
   [
-    [x, x, x],
-    [x, o, o],
-    [x, x, x],
-    [o, o, x],
-    [x, x, x],
+    [1, 1, 1],
+    [1, 0, 0],
+    [1, 1, 1],
+    [0, 0, 1],
+    [1, 1, 1],
   ],
   // Six
   [
-    [x, x, x],
-    [x, o, o],
-    [x, x, x],
-    [x, o, x],
-    [x, x, x],
+    [1, 1, 1],
+    [1, 0, 0],
+    [1, 1, 1],
+    [1, 0, 1],
+    [1, 1, 1],
   ],
   // Seven
   [
-    [x, x, x],
-    [o, o, x],
-    [o, o, x],
-    [o, o, x],
-    [o, o, x],
+    [1, 1, 1],
+    [0, 0, 1],
+    [0, 0, 1],
+    [0, 0, 1],
+    [0, 0, 1],
   ],
   // Eight
   [
-    [x, x, x],
-    [x, o, x],
-    [x, x, x],
-    [x, o, x],
-    [x, x, x],
+    [1, 1, 1],
+    [1, 0, 1],
+    [1, 1, 1],
+    [1, 0, 1],
+    [1, 1, 1],
   ],
   // Nine
   [
-    [x, x, x],
-    [x, o, x],
-    [x, x, x],
-    [o, o, x],
-    [o, o, x],
+    [1, 1, 1],
+    [1, 0, 1],
+    [1, 1, 1],
+    [0, 0, 1],
+    [0, 0, 1],
   ],
 ];
 
-render({ selector: '#stage', layers, height: 100, width: 200, size: 15 }, [
+render({ selector: '#stage', layers, height: 10, width: 20, size: 15 }, [
   sprite({
     layer: () => layers[0],
     palette: () => ['white', 'black'],
     state: ({ time, delta }) => ({
       index: Math.floor(time / 10000) % 10,
     }),
-    render: (palette, frame, { index }) => digits(palette)[index],
+    render: (frame, { index }) => digits[index],
   }),
   sprite({
     layer: () => layers[0],
@@ -98,7 +98,7 @@ render({ selector: '#stage', layers, height: 100, width: 200, size: 15 }, [
     state: ({ time, delta }) => ({
       index: Math.floor(time / 1000) % 10,
     }),
-    render: (palette, frame, { index }) => digits(palette)[index],
+    render: (frame, { index }) => digits[index],
   }),
   sprite({
     layer: () => layers[0],
@@ -107,6 +107,6 @@ render({ selector: '#stage', layers, height: 100, width: 200, size: 15 }, [
     state: ({ time, delta }) => ({
       index: Math.floor(time / 100) % 10,
     }),
-    render: (palette, frame, { index }) => digits(palette)[index],
+    render: (frame, { index }) => digits[index],
   }),
 ]);

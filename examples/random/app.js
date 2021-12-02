@@ -5,6 +5,8 @@ const random = (max) => {
   return Math.floor(Math.random() * max);
 };
 
+const colors = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet'];
+
 render(
   {
     selector: '#stage',
@@ -16,18 +18,10 @@ render(
   [
     sprite({
       layer: () => 'background',
-      palette: () => [
-        'red',
-        'orange',
-        'yellow',
-        'green',
-        'blue',
-        'indigo',
-        'violet',
-      ],
-      render: (palette) => {
+      palette: () => colors,
+      render: () => {
         return Array.from(new Array(W), () =>
-          Array.from(new Array(H), () => palette[random(palette.length)])
+          Array.from(new Array(H), () => random(colors.length))
         );
       },
     }),

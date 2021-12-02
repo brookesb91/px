@@ -11,7 +11,7 @@
  * @type {[number, number]}
  *
  * @typedef Pixels
- * @type {string[][]}
+ * @type {number[][]}
  *
  * @typedef PaletteBuilder
  * @type {function(Frame,Record<string, unknown>):Palette}
@@ -125,7 +125,7 @@ const render = ({ selector, layers, height, width, size }, sprites) => {
         const state = sprite.state(frame);
         const [posX, posY] = sprite.position(frame, state);
         const palette = sprite.palette(frame, state);
-        const pixels = sprite.render(palette, frame, state);
+        const pixels = sprite.render(frame, state);
 
         const rows = pixels.length;
         let y = 0;
@@ -136,7 +136,7 @@ const render = ({ selector, layers, height, width, size }, sprites) => {
 
           while (x < cols) {
             ctx.save();
-            ctx.fillStyle = pixels[y][x];
+            ctx.fillStyle = palette[pixels[y][x]];
             ctx.fillRect(
               x * size + posX * size,
               y * size + posY * size,
