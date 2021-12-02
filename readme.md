@@ -11,7 +11,7 @@ Add px to your page.
 Via JsDelivr
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/brookesb91/px@v0.2/px.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/brookesb91/px@v0.3/px.js"></script>
 ```
 
 Create a root element.
