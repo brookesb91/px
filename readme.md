@@ -23,90 +23,44 @@ Create a root element.
 Render sprites using JavaScript.
 
 ```js
-/**
- * Render, with the given options, the provided sprites.
- */
 render(
-  // Rendering config
   {
-    /**
-     * Selector for the root element.
-     * Uses first element found with `document.querySelector(selector)`.
-     */
     selector: '#stage',
-    /**
-     * The physical pixel size of each
-     * rendered sprite pixel.
-     */
-    size: 10,
-    /**
-     * The height of the rendering canvas.
-     *
-     * The final value is equal to the height
-     * multiplied by the size.
-     */
-    height: 12,
-    /**
-     * The width of the rendering canvas.
-     *
-     * The final value is equal to the width
-     * multiplied by the size.
-     */
+    layers: ['foreground'],
+    height: 16,
     width: 16,
-    /**
-     * Named and ordered layers.
-     * Layers are rendered in order of their index.
-     */
-    layers: ['background', 'foreground'],
+    size: 15,
   },
-  // Array of sprites to be rendered
   [
     sprite({
-      /**
-       * Return the named layer this sprite is rendered to.
-       */
-      layer: ({ time, delta }) => 'background',
-      /**
-       * Return the colour palette for this sprite.
-       */
-      palette: ({ time, delta }) => ['white', 'black'],
-      /**
-       * Given the palette, return the pixels of this sprite.
-       */
-      render: ({ time, delta }) => [
-        [1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0],
-        [1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0],
-        [1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0],
-        [1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0],
-        [0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1],
-        [0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1],
-        [0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1],
-        [0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1],
-        [1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0],
-        [1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0],
-        [1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0],
-        [1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0],
-      ],
-    }),
-    sprite({
-      /**
-       * Optionally return a position for this sprite.
-       * This position acts as the sprite's rendering origin.
-       */
-      position: ({ time, delta }) => [5, 6],
-      layer: ({ time, delta }) => 'foreground',
-      palette: ({ time, delta }) => ['transparent', 'red'],
-      render: ({ time, delta }) => [
-        [1, 0, 0, 1, 0, 1, 0, 1],
-        [1, 0, 0, 1, 0, 1, 0, 1],
-        [1, 1, 1, 1, 0, 1, 0, 1],
-        [1, 0, 0, 1, 0, 1, 0, 1],
-        [1, 0, 0, 1, 0, 1, 0, 1],
+      palette: () => ['transparent', '#D82800', '#887000', '#FC9838'],
+      layer: () => 'foreground',
+      render: () => [
+        [0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0],
+        [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0],
+        [0, 0, 0, 2, 2, 2, 2, 3, 3, 2, 3, 0, 0, 0, 0],
+        [0, 0, 2, 2, 3, 2, 3, 3, 3, 2, 3, 3, 3, 0, 0],
+        [0, 0, 2, 2, 3, 2, 2, 3, 3, 3, 2, 3, 3, 3, 0],
+        [0, 0, 2, 2, 2, 3, 3, 3, 3, 2, 2, 2, 2, 0, 0],
+        [0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0],
+        [0, 0, 0, 2, 2, 2, 1, 2, 2, 2, 0, 0, 0, 0, 0],
+        [0, 0, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 0, 0],
+        [0, 2, 2, 2, 2, 2, 1, 1, 1, 1, 2, 2, 2, 2, 0],
+        [0, 3, 3, 3, 2, 1, 3, 1, 1, 3, 1, 2, 3, 3, 0],
+        [0, 3, 3, 3, 3, 1, 1, 1, 1, 1, 1, 3, 3, 3, 0],
+        [0, 3, 3, 3, 1, 1, 1, 1, 1, 1, 1, 3, 3, 3, 0],
+        [0, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0],
+        [0, 0, 2, 2, 2, 2, 0, 0, 0, 2, 2, 2, 2, 0, 0],
+        [0, 2, 2, 2, 2, 2, 0, 0, 0, 2, 2, 2, 2, 2, 0],
       ],
     }),
   ]
 );
 ```
+
+### Result
+
+<img src="examples/mario/screenshot.PNG">
 
 ## In-Depth
 
