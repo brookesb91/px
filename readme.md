@@ -62,6 +62,8 @@ render(
 
 <img src="examples/mario/screenshot.PNG">
 
+[Try It Online!](https://codepen.io/pen/?template=GRMJVOY)
+
 ## In-Depth
 
 Rendering requires calling the `render` function with a `RenderConfig` object and an array of sprites.
